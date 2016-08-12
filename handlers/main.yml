@@ -1,2 +1,4 @@
----
-# handlers file for ansible-sensu-client
+- name: restart sensu-client
+  service:
+    name: sensu-client
+    state: restarted

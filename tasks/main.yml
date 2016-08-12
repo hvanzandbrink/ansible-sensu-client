@@ -1,2 +1,41 @@
----
-# tasks file for ansible-sensu-client
+- name: be sure client.json is copied
+  template:
+    src: client.j2
+    dest: "{{ sensu_conf_d }}/client.json"
+  notify:
+    - restart sensu-client
+
+- name: be sure rabbitmq.json is copied
+  template:
+    src: rabbitmq.j2
+    dest: "{{ sensu_conf_d }}/rabbitmq.json"
+  notify:
+    - restart sensu-client
+
+- name: be sure sensu-client is running and enabled
+  service:
+    name: sensu-client
+    state: started
+    enabled: yes
+
+- name: be sure sensu-plugins-http is cloned
+  git:
+    repo: https://github.com/sensu-plugins/sensu-plugins-http.git
+    dest: /tmp/sensu-plugins-http
+    update: yes
+
+- name: be sure check-http.rb is copied
+  copy:
+    src: /tmp/sensu-plugins-http/bin/check-http.rb
+    dest: /etc/sensu/plugins/check-http.rb
+    remote_src: true
+    owner: sensu
+    group: sensu
+    mode: 0500
+  notify: restart sensu-client
+
+- name: be sure check_websites.json is copied
+  template:
+    src: check_websites.j2
+    dest: "{{ sensu_conf_d }}/check_websites.json"
+  notify: restart sensu-client
