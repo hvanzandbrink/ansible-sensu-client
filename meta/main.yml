@@ -1,0 +1,18 @@
+galaxy_info:
+  author: 030
+  description: Installs latest sensu-client
+  issue_tracker_url: https://github.com/030/ansible-sensu-client/issues
+  license: 'MIT'
+  min_ansible_version: 2.1.0.0
+  platforms:
+  - name: EL
+    versions:
+    - 7
+  - name: Ubuntu
+    versions:
+    - trusty
+  galaxy_tags:
+    - sensu
+
+dependencies:
+  - { role: 030.sensu-install }
