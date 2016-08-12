@@ -7,46 +7,11 @@ env:
     init: /sbin/init
     run_opts: ""
     SITE: package
-  - distribution: ubuntu
-    version: 14.04
-    init: /sbin/init
-    run_opts: ""
-    SITE: sensu-client
-  - distribution: ubuntu
-    version: 14.04
-    init: /sbin/init
-    run_opts: ""
-    SITE: sensu-server
-  - distribution: ubuntu
-    version: 14.04
-    init: /sbin/init
-    run_opts: ""
-    SITE: all
   - distribution: centos
     version: 7
     init: /usr/lib/systemd/systemd
     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
     SITE: package
-  - distribution: centos
-    version: 7
-    init: /usr/lib/systemd/systemd
-    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    SITE: sensu-client
-  - distribution: centos
-    version: 7
-    init: /usr/lib/systemd/systemd
-    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    SITE: sensu-server
-  - distribution: centos
-    version: 7
-    init: /usr/lib/systemd/systemd
-    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    SITE: all
-#  - distribution: ubuntu
-#    version: 16.04
-#    init: /usr/lib/systemd/systemd
-#    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-#    SITE: package
 
 services:
   - docker
