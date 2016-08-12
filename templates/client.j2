@@ -1,0 +1,15 @@
+{
+  "client": {
+    "name": "{{ ansible_fqdn }}",
+    "address": "{{ sensu_client_ip }}",
+    "environment": "development",
+    "subscriptions": [
+      "dev",
+      "rhel"
+    ],
+    "socket": {
+      "bind": "127.0.0.1",
+      "port": 3030
+    }
+  }
+}
