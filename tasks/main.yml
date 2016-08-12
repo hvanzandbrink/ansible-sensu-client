@@ -1,14 +1,14 @@
 - name: be sure client.json is copied
   template:
     src: client.j2
-    dest: "{{ sensu_conf_d }}/client.json"
+    dest: "/etc/sensu/conf.d/client.json"
   notify:
     - restart sensu-client
 
 - name: be sure rabbitmq.json is copied
   template:
     src: rabbitmq.j2
-    dest: "{{ sensu_conf_d }}/rabbitmq.json"
+    dest: "/etc/sensu/conf.d/rabbitmq.json"
   notify:
     - restart sensu-client
 
@@ -37,5 +37,5 @@
 - name: be sure check_websites.json is copied
   template:
     src: check_websites.j2
-    dest: "{{ sensu_conf_d }}/check_websites.json"
+    dest: "/etc/sensu/conf.d/check_websites.json"
   notify: restart sensu-client
