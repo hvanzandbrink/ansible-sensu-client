@@ -51,6 +51,7 @@
     - { reponame: 'memory-checks', checkname: 'memory-percent.rb' }
     - { reponame: 'memory-checks', checkname: 'memory-percent.sh' }
     - { reponame: 'memory-checks', checkname: 'swap-percent.rb' }
+    - { reponame: 'memory-checks', checkname: 'swap-percent.sh' }
     - { reponame: 'ntp', checkname: 'ntp.rb' }
   notify: restart sensu-client
 
