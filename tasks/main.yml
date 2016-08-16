@@ -18,11 +18,14 @@
     state: started
     enabled: yes
 
-- name: be sure sensu-plugins-http is cloned
+- name: be sure sensu-plugins-{{ item }} is cloned
   git:
-    repo: https://github.com/sensu-plugins/sensu-plugins-http.git
-    dest: /tmp/sensu-plugins-http
+    repo: https://github.com/sensu-plugins/sensu-plugins-{{ item }}.git
+    dest: /tmp/sensu-plugins-{{ item }}
     update: yes
+  with_items:
+     - cpu-checks
+     - http
 
 - name: be sure check-http.rb is copied
   copy:
