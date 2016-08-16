@@ -7,11 +7,14 @@
       "standalone": true,
       "interval": 60,
       "refresh": 60      
-    }
-{% if not loop.last %}
-,
-{% endif %}
+    },
 {% endfor %}
 {% endif %}
+    "cpu": {
+      "command": "{{ sensu_plugins_dir }}/check-cpu.rb",
+      "standalone": true,
+      "interval": 60,
+      "refresh": 60
+    }
   }
 }
