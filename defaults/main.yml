@@ -10,7 +10,6 @@ rabbitmq_port: 5672
 common_checks:
   - cpu
   - disk-usage
-  - http
   - memory-percent
   - ntp
   - swap-percent
