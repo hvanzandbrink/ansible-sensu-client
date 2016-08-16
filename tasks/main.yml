@@ -60,3 +60,10 @@
     src: checks.j2
     dest: "/etc/sensu/conf.d/checks.json"
   notify: restart sensu-client
+
+- name: be sure sys-filesystem gem is installed
+  gem:
+    name: sys-filesystem
+    state: latest
+    user_install: no
+    executable: /opt/sensu/embedded/bin/gem
