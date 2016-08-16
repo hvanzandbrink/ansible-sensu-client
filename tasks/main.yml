@@ -27,14 +27,17 @@
      - cpu-checks
      - http
 
-- name: be sure check-http.rb is copied
+- name: be sure check-{{ checkname }}.rb is copied
   copy:
-    src: /tmp/sensu-plugins-http/bin/check-http.rb
-    dest: /etc/sensu/plugins/check-http.rb
+    src: /tmp/sensu-plugins-{{ reponame }}/bin/check-{{ checkname }}.rb
+    dest: /etc/sensu/plugins/check-{{ checkname }}.rb
     remote_src: true
     owner: sensu
     group: sensu
     mode: 0500
+  with_items:
+    - { reponame: 'cpu-checks', checkname: 'cpu' }
+    - { reponame: 'http', checkname: 'http' }
   notify: restart sensu-client
 
 - name: be sure checks.json is copied
