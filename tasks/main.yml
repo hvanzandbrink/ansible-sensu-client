@@ -1,3 +1,9 @@
+- include: RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: Debian.yml
+  when: ansible_os_family == 'Debian'
+
 - name: be sure client.json is copied
   template:
     src: client.j2

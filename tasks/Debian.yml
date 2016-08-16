@@ -1,0 +1,4 @@
+- name: be sure ntp is installed
+  apt:
+    name: ntp
+    state: latest
