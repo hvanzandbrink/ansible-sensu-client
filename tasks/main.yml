@@ -20,7 +20,7 @@
 
 - name: be sure sensu-plugins-{{ item }} is cloned
   git:
-    repo: https://github.com/sensu-plugins/sensu-plugins-{{ item }}.git
+    repo: {{ sensu_client_github_url_base }}{{ item }}.git
     dest: /tmp/sensu-plugins-{{ item }}
     update: yes
   with_items:

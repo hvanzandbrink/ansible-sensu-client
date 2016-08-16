@@ -1,4 +1,6 @@
 sensu_client_ip: 127.0.0.1
+sensu_client_plugins: sensu-plugins
+sensu_client_github_url_base: https://github.com/{{ sensu_client_plugins }}/{{ sensu_client_plugins }}-
 
 rabbitmq_host: 127.0.0.1
 rabbitmq_sensu_password: secret
