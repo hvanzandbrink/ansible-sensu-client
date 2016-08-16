@@ -38,19 +38,20 @@
 
 - name: be sure check-{{ item.checkname }}.rb is copied
   copy:
-    src: /tmp/sensu-plugins-{{ item.reponame }}/bin/check-{{ item.checkname }}.rb
-    dest: /etc/sensu/plugins/check-{{ item.checkname }}.rb
+    src: /tmp/sensu-plugins-{{ item.reponame }}/bin/check-{{ item.checkname }}
+    dest: /etc/sensu/plugins/check-{{ item.checkname }}
     remote_src: true
     owner: sensu
     group: sensu
     mode: 0500
   with_items:
-    - { reponame: 'cpu-checks', checkname: 'cpu' }
-    - { reponame: 'disk-checks', checkname: 'disk-usage' }
-    - { reponame: 'http', checkname: 'http' }
-    - { reponame: 'memory-checks', checkname: 'memory-percent' }
-    - { reponame: 'memory-checks', checkname: 'swap-percent' }
-    - { reponame: 'ntp', checkname: 'ntp' }
+    - { reponame: 'cpu-checks', checkname: 'cpu.rb' }
+    - { reponame: 'disk-checks', checkname: 'disk-usage.rb' }
+    - { reponame: 'http', checkname: 'http.rb' }
+    - { reponame: 'memory-checks', checkname: 'memory-percent.rb' }
+    - { reponame: 'memory-checks', checkname: 'memory-percent.sh' }
+    - { reponame: 'memory-checks', checkname: 'swap-percent.rb' }
+    - { reponame: 'ntp', checkname: 'ntp.rb' }
   notify: restart sensu-client
 
 - name: be sure checks.json is copied
