@@ -26,6 +26,7 @@
   with_items:
      - cpu-checks
      - http
+     - ntp
 
 - name: be sure check-{{ item.checkname }}.rb is copied
   copy:
@@ -38,6 +39,7 @@
   with_items:
     - { reponame: 'cpu-checks', checkname: 'cpu' }
     - { reponame: 'http', checkname: 'http' }
+    - { reponame: 'ntp', checkname: 'ntp' }
   notify: restart sensu-client
 
 - name: be sure checks.json is copied
