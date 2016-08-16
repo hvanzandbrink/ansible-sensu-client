@@ -10,5 +10,11 @@
     },
 {% endfor %}
 {% endif %}
+    "cpu": {
+      "command": "{{ sensu_plugins_dir }}/check-cpu.rb",
+      "standalone": true,
+      "interval": 60,
+      "refresh": 60
+    }
   }
 }

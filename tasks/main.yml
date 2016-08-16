@@ -18,20 +18,26 @@
     state: started
     enabled: yes
 
-- name: be sure sensu-plugins-http is cloned
+- name: be sure sensu-plugins-{{ item }} is cloned
   git:
-    repo: https://github.com/sensu-plugins/sensu-plugins-http.git
-    dest: /tmp/sensu-plugins-http
+    repo: "{{ sensu_client_github_url_base }}{{ item }}.git"
+    dest: /tmp/sensu-plugins-{{ item }}
     update: yes
+  with_items:
+     - cpu-checks
+     - http
 
-- name: be sure check-http.rb is copied
+- name: be sure check-{{ item.checkname }}.rb is copied
   copy:
-    src: /tmp/sensu-plugins-http/bin/check-http.rb
-    dest: /etc/sensu/plugins/check-http.rb
+    src: /tmp/sensu-plugins-{{ item.reponame }}/bin/check-{{ item.checkname }}.rb
+    dest: /etc/sensu/plugins/check-{{ item.checkname }}.rb
     remote_src: true
     owner: sensu
     group: sensu
     mode: 0500
+  with_items:
+    - { reponame: 'cpu-checks', checkname: 'cpu' }
+    - { reponame: 'http', checkname: 'http' }
   notify: restart sensu-client
 
 - name: be sure checks.json is copied
