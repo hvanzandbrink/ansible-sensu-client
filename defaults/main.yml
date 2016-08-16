@@ -3,11 +3,3 @@ sensu_client_ip: 127.0.0.1
 rabbitmq_host: 127.0.0.1
 rabbitmq_sensu_password: secret
 rabbitmq_port: 5672
-
-websites:
-  - name: website1
-    url: http://unknownwebsite123
-    keyword: unknown
-  - name: website2
-    url: http://unknownwebsite456
-    keyword: unknown

@@ -48,6 +48,9 @@ script:
   #- 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm sudo systemctl status sensu-client.service -l'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /etc/init.d'
   #[GH-54] disabled as sometimes failes on ubuntu14- 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "3000\|3030\|4567"'
+  
+  #test websites conf
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json'
 
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'

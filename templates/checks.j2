@@ -1,5 +1,6 @@
 {
   "checks": {
+{% if texts is defined %}
 {% for website in websites %}
     "{{ website.name }}": {
       "command": "/etc/sensu/plugins/check-http.rb -u {{ website.url }} -q '{{ website.keyword }}'",
@@ -8,11 +9,6 @@
       "refresh": 60      
     },
 {% endfor %}
-    "github": {
-      "command": "/etc/sensu/plugins/check-http.rb -u https://github.com -q github",
-      "standalone": true,
-      "interval": 60,
-      "refresh": 60
-    }
+{% endif %}
   }
 }
