@@ -2,11 +2,12 @@
 sudo: required
 
 env:
-  - distribution: ubuntu
-    version: 14.04
-    init: /sbin/init
-    run_opts: ""
-    SITE: package
+#TODO: [GH-15] ubuntu build broken
+#  - distribution: ubuntu
+#    version: 14.04
+#    init: /sbin/init
+#    run_opts: ""
+#    SITE: package
   - distribution: centos
     version: 7
     init: /usr/lib/systemd/systemd
@@ -51,6 +52,8 @@ script:
   
   #test websites conf
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json'
+  #test plugins
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /etc/sensu/plugins'
 
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'
