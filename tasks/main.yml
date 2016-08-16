@@ -20,17 +20,17 @@
 
 - name: be sure sensu-plugins-{{ item }} is cloned
   git:
-    repo: {{ sensu_client_github_url_base }}{{ item }}.git
+    repo: "{{ sensu_client_github_url_base }}{{ item }}.git"
     dest: /tmp/sensu-plugins-{{ item }}
     update: yes
   with_items:
      - cpu-checks
      - http
 
-- name: be sure check-{{ checkname }}.rb is copied
+- name: be sure check-{{ item.checkname }}.rb is copied
   copy:
-    src: /tmp/sensu-plugins-{{ reponame }}/bin/check-{{ checkname }}.rb
-    dest: /etc/sensu/plugins/check-{{ checkname }}.rb
+    src: /tmp/sensu-plugins-{{ item.reponame }}/bin/check-{{ item.checkname }}.rb
+    dest: /etc/sensu/plugins/check-{{ item.checkname }}.rb
     remote_src: true
     owner: sensu
     group: sensu
