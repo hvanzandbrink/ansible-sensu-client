@@ -27,6 +27,7 @@
      - cpu-checks
      - disk-checks
      - http
+     - memory-checks
      - ntp
 
 - name: be sure check-{{ item.checkname }}.rb is copied
@@ -41,6 +42,8 @@
     - { reponame: 'cpu-checks', checkname: 'cpu' }
     - { reponame: 'disk-checks', checkname: 'disk-usage' }
     - { reponame: 'http', checkname: 'http' }
+    - { reponame: 'memory-checks', checkname: 'memory-percent' }
+    - { reponame: 'memory-checks', checkname: 'swap-percent' }
     - { reponame: 'ntp', checkname: 'ntp' }
   notify: restart sensu-client
 
