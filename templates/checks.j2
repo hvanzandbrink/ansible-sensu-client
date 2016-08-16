@@ -10,11 +10,16 @@
     },
 {% endfor %}
 {% endif %}
-    "cpu": {
-      "command": "{{ sensu_plugins_dir }}/check-cpu.rb",
+{% for common_check in common_checks %}
+    "{{ common_check }}": {
+      "command": "{{ sensu_plugins_dir }}/check-{{ common_check }}.rb",
       "standalone": true,
       "interval": 60,
       "refresh": 60
     }
+{% if not loop.last %}
+,
+{% endif %}
+{% endfor %}
   }
 }
