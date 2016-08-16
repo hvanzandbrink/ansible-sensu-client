@@ -25,6 +25,7 @@
     update: yes
   with_items:
      - cpu-checks
+     - disk-checks
      - http
      - ntp
 
@@ -38,6 +39,7 @@
     mode: 0500
   with_items:
     - { reponame: 'cpu-checks', checkname: 'cpu' }
+    - { reponame: 'disk-checks', checkname: 'disk-usage' }
     - { reponame: 'http', checkname: 'http' }
     - { reponame: 'ntp', checkname: 'ntp' }
   notify: restart sensu-client
