@@ -34,8 +34,8 @@
     mode: 0500
   notify: restart sensu-client
 
-- name: be sure check_websites.json is copied
+- name: be sure checks.json is copied
   template:
-    src: check_websites.j2
-    dest: "/etc/sensu/conf.d/check_websites.json"
+    src: checks.j2
+    dest: "/etc/sensu/conf.d/checks.json"
   notify: restart sensu-client
