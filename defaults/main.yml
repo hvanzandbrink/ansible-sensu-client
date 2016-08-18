@@ -7,9 +7,18 @@ rabbitmq_host: 127.0.0.1
 rabbitmq_sensu_password: secret
 rabbitmq_port: 5672
 
-common_checks:
-  - cpu
-  - disk-usage
-  - memory-percent
+plugins:
+  - cpu-checks
+  - disk-checks
+  - http
+  - memory-checks
   - ntp
-  - swap-percent
+
+checks_metrics:
+  - { name: 'cpu', type: 'check' }
+  - { name: 'disk-usage', type: 'check' }
+  - { name: 'http', type: 'check' }
+  - { name: 'memory-percent', type: 'check' }
+  - { name: 'ntp', type: 'check' }
+  - { name: 'swap-percent', type: 'check' }
+  - { name: 'memory-percent', type: 'metrics' }

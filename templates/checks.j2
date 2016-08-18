@@ -10,9 +10,13 @@
     },
 {% endfor %}
 {% endif %}
-{% for common_check in common_checks %}
-    "{{ common_check }}": {
-      "command": "{{ sensu_plugins_dir }}/check-{{ common_check }}.rb",
+{% for check_or_metric in checks_and_metrics %}
+    "{{ check_or_metric }}": {
+      "type": "{{ check_or_metric.type }}",
+    {% if check_or_metric.type is 'metric' %}
+      "handlers": ["relay"],
+    {% endif %}
+      "command": "{{ check_or_metric.name }}.rb",
       "standalone": true,
       "interval": 60,
       "refresh": 60
