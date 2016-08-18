@@ -53,7 +53,7 @@ script:
   #test websites conf
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json'
   #test plugins
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /etc/sensu/plugins | grep "cpu\|http"'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /opt/sensu/embedded/bin | grep "cpu\|http"'
 
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'
