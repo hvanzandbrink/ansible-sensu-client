@@ -36,10 +36,10 @@
      - memory-checks
      - ntp
 
-- name: be sure {{ type }}-{{ item.checkname }}.rb is copied
+- name: be sure {{ item.type }}-{{ item.checkname }}.rb is copied
   copy:
-    src: /tmp/sensu-plugins-{{ item.reponame }}/bin/{{ type }}-{{ item.checkname }}
-    dest: /etc/sensu/plugins/{{ type }}-{{ item.checkname }}
+    src: /tmp/sensu-plugins-{{ item.reponame }}/bin/{{ item.type }}-{{ item.checkname }}
+    dest: /etc/sensu/plugins/{{ item.type }}-{{ item.checkname }}
     remote_src: true
     owner: sensu
     group: sensu
