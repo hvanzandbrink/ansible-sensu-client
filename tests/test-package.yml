@@ -4,4 +4,3 @@
   roles:
     - role_under_test
     - 030.sensu-install
-    - geerlingguy.git
