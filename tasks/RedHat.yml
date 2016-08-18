@@ -1,6 +1,6 @@
 - name: be sure {{ item }} is installed
   yum:
-    name: {{ item }}
+    name: "{{ item }}"
     state: latest
   with_items:
     - ntp
