@@ -12,10 +12,6 @@
 {% endif %}
 {% for check_or_metric in checks_and_metrics %}
     "{{ check_or_metric }}": {
-      "type": "{{ bla | regex_replace('^(.*)-.*', '\\1') }}",
-    {% if {{ bla | regex_replace('^(.*)-.*', '\\1') }} is 'metrics' %}
-      "handlers": ["relay"],
-    {% endif %}
       "command": "{{ check_or_metric }}.rb",
       "standalone": true,
       "interval": 60,
