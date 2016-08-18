@@ -10,9 +10,9 @@
     },
 {% endfor %}
 {% endif %}
-{% for check_or_metric in checks_and_metrics %}
-    "{{ check_or_metric }}": {
-      "command": "{{ check_or_metric }}.rb",
+{% for check_metric in checks_metrics %}
+    "{{ check_metric }}": {
+      "command": "{{ check_metric }}.rb",
       "standalone": true,
       "interval": 60,
       "refresh": 60
