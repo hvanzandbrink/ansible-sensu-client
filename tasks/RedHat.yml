@@ -8,4 +8,4 @@
 - name: install the 'Development tools' package group
   yum: 
     name: "@Development tools"
-    state: latest
+    state: present
