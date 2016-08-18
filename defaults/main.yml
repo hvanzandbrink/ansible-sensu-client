@@ -15,12 +15,12 @@ plugins:
   - ntp
 
 checks_metrics:
-  - { name: 'cpu', type: 'check' }
-  - { name: 'disk-usage', type: 'check' }
-  - { name: 'http', type: 'check' }
-  - { name: 'memory-percent', type: 'check' }
-  - { name: 'ntp', type: 'check' }
-  - { name: 'swap-percent', type: 'check' }
-  - { name: 'cpu', type: 'metrics' }
-  - { name: 'memory-percent', type: 'metrics' }
-  - { name: 'disk', type: 'metrics' }
+  - check-cpu'
+  - check-disk-usage'
+  - check-http'
+  - check-memory-percent'
+  - check-ntp'
+  - check-swap-percent'
+  - metrics-cpu'
+  - metrics-memory-percent'
+  - metrics-disk'

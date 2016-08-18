@@ -12,11 +12,11 @@
 {% endif %}
 {% for check_or_metric in checks_and_metrics %}
     "{{ check_or_metric }}": {
-      "type": "{{ check_or_metric.type }}",
-    {% if check_or_metric.type is 'metric' %}
+      "type": "{{ {{ check_or_metric }} | regex_replace('^(.*)-.*', '\\1') }}",
+    {% if {{ {{ check_or_metric }} | regex_replace('^(.*)-.*', '\\1') }} is 'metric' %}
       "handlers": ["relay"],
     {% endif %}
-      "command": "{{ check_or_metric.name }}.rb",
+      "command": "{{ check_or_metric }}.rb",
       "standalone": true,
       "interval": 60,
       "refresh": 60
