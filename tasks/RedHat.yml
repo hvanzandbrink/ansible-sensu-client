@@ -4,7 +4,6 @@
     state: latest
   with_items:
     - ntp
-    - ruby-devel
 
 - name: install the 'Development tools' package group
   yum: name="@Development tools" state=present
