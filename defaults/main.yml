@@ -21,4 +21,6 @@ checks_metrics:
   - { name: 'memory-percent', type: 'check' }
   - { name: 'ntp', type: 'check' }
   - { name: 'swap-percent', type: 'check' }
+  - { name: 'cpu', type: 'metrics' }
   - { name: 'memory-percent', type: 'metrics' }
+  - { name: 'disk', type: 'metrics' }
