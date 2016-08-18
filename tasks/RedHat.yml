@@ -1,4 +1,11 @@
-- name: be sure ntp is installed
+- name: be sure {{ item }} is installed
   yum:
-    name: ntp
+    name: "{{ item }}"
     state: latest
+  with_items:
+    - ntp
+
+- name: install the 'Development tools' package group
+  yum: 
+    name: "@Development tools"
+    state: present

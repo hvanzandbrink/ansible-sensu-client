@@ -16,4 +16,3 @@ galaxy_info:
 
 dependencies:
   - { role: 030.sensu-install }
-  - { role: geerlingguy.git }
