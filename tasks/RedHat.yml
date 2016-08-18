@@ -1,4 +1,7 @@
-- name: be sure ntp is installed
+- name: be sure {{ item }} is installed
   yum:
-    name: ntp
+    name: {{ item }}
     state: latest
+  with_items:
+    - ntp
+    - ruby-devel
