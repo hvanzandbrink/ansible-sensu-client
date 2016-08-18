@@ -31,7 +31,7 @@
 
 - name: be sure sensu-plugins-{{ item }} is installed
   command: sensu-install -p {{ item }}
-  when: "'^sensu-plugins-{{ item }}\s' not in installed_plugins.stdout"
+  when: "'sensu-plugins-{{ item }} ' not in installed_plugins.stdout"
   with_items: "{{ plugins }}"
 
 - name: be sure checks.json is copied
