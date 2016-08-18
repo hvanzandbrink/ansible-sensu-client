@@ -36,23 +36,24 @@
      - memory-checks
      - ntp
 
-- name: be sure check-{{ item.checkname }}.rb is copied
+- name: be sure {{ type }}-{{ item.checkname }}.rb is copied
   copy:
-    src: /tmp/sensu-plugins-{{ item.reponame }}/bin/check-{{ item.checkname }}
-    dest: /etc/sensu/plugins/check-{{ item.checkname }}
+    src: /tmp/sensu-plugins-{{ item.reponame }}/bin/{{ type }}-{{ item.checkname }}
+    dest: /etc/sensu/plugins/{{ type }}-{{ item.checkname }}
     remote_src: true
     owner: sensu
     group: sensu
     mode: 0500
   with_items:
-    - { reponame: 'cpu-checks', checkname: 'cpu.rb' }
-    - { reponame: 'disk-checks', checkname: 'disk-usage.rb' }
-    - { reponame: 'http', checkname: 'http.rb' }
-    - { reponame: 'memory-checks', checkname: 'memory-percent.rb' }
-    - { reponame: 'memory-checks', checkname: 'memory-percent.sh' }
-    - { reponame: 'memory-checks', checkname: 'swap-percent.rb' }
-    - { reponame: 'memory-checks', checkname: 'swap-percent.sh' }
-    - { reponame: 'ntp', checkname: 'ntp.rb' }
+    - { reponame: 'cpu-checks', checkname: 'cpu.rb', type: 'check' }
+    - { reponame: 'disk-checks', checkname: 'disk-usage.rb', type: 'check' }
+    - { reponame: 'http', checkname: 'http.rb', type: 'check' }
+    - { reponame: 'memory-checks', checkname: 'memory-percent.rb', type: 'check' }
+    - { reponame: 'memory-checks', checkname: 'memory-percent.sh', type: 'check' }
+    - { reponame: 'memory-checks', checkname: 'swap-percent.rb', type: 'check' }
+    - { reponame: 'memory-checks', checkname: 'swap-percent.sh', type: 'check' }
+    - { reponame: 'ntp', checkname: 'ntp.rb', type: 'check' }
+    - { reponame: 'memory-checks', checkname: 'memory-percent.rb', type: 'metrics' }
   notify: restart sensu-client
 
 - name: be sure checks.json is copied
