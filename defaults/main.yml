@@ -17,7 +17,6 @@ plugins:
 checks_metrics:
   - check-cpu
   - check-disk-usage
-  - check-http
   - check-memory-percent
   - check-ntp
   - check-swap-percent

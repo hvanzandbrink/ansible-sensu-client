@@ -1,6 +1,6 @@
 {
   "checks": {
-{% if texts is defined %}
+{% if websites is defined %}
 {% for website in websites %}
     "{{ website.name }}": {
       "command": "/etc/sensu/plugins/check-http.rb -u {{ website.url }} -q '{{ website.keyword }}'",
