@@ -1,4 +1,7 @@
-- name: be sure ntp is installed
+- name: be sure {{ item }} is installed
   apt:
-    name: ntp
+    name: "{{ item }}"
     state: latest
+  with_items:
+    - build-essential
+    - ntp
