@@ -29,7 +29,6 @@ Dependencies
 ------------
 
 * 030.sensu-install
-* geerlingguy.git
 
 Example Playbook
 ----------------
