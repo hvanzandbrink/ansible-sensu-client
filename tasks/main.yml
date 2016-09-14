@@ -21,8 +21,14 @@
     state: started
     enabled: yes
 
-- name: be sure sensu-plugins-{{ item }} is installed
-  command: sensu-install -p {{ item }}
+- name: get installed sensu-plugins
+  command: /opt/sensu/embedded/bin/gem list --local
+  register: installed_plugins
+  changed_when: false
+
+- name: be sure sensu-plugins-{{ item.name }} is installed
+  command: sensu-install -p {{ item.name }}:{{ item.version }}
+  when: "'sensu-plugins-{{ item.name }}.*{{ item.version }}.*' not in installed_plugins.stdout"
   with_items: "{{ plugins }}"
 
 - name: be sure sys-filesystem gem is installed

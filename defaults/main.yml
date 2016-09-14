@@ -8,11 +8,16 @@ rabbitmq_sensu_password: secret
 rabbitmq_port: 5672
 
 plugins:
-  - cpu-checks
-  - disk-checks
-  - http
-  - memory-checks
-  - ntp
+  - name: cpu-checks
+    version: 1.0.0
+  - name: disk-checks
+    version: 2.0.1
+  - name: http
+    version: 1.0.0
+  - name: memory-checks
+    version: 1.0.2
+  - name: ntp
+    version: 1.0.0
 
 checks_metrics:
   - check-cpu
