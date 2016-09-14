@@ -50,7 +50,7 @@ script:
   # Test role.
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook}'
   # run twice to debug failed idempotence check
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook}'
+  #- 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook}'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/fstab'
 
   # Test role idempotence.
