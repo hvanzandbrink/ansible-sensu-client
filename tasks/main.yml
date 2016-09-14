@@ -4,19 +4,16 @@
 - include: Debian.yml
   when: ansible_os_family == 'Debian'
 
-- name: be sure client.json is copied
+- name: be sure {{ item }}.json is copied
   template:
-    src: client.j2
-    dest: "/etc/sensu/conf.d/client.json"
+    src: "{{ item }}.j2"
+    dest: "/etc/sensu/conf.d/{{ item }}.json"
   notify:
     - restart sensu-client
-
-- name: be sure rabbitmq.json is copied
-  template:
-    src: rabbitmq.j2
-    dest: "/etc/sensu/conf.d/rabbitmq.json"
-  notify:
-    - restart sensu-client
+  with_items:
+    - checks
+    - client
+    - rabbitmq
 
 - name: be sure sensu-client is running and enabled
   service:
@@ -27,12 +24,6 @@
 - name: be sure sensu-plugins-{{ item }} is installed
   command: sensu-install -p {{ item }}
   with_items: "{{ plugins }}"
-
-- name: be sure checks.json is copied
-  template:
-    src: checks.j2
-    dest: "/etc/sensu/conf.d/checks.json"
-  notify: restart sensu-client
 
 - name: be sure sys-filesystem gem is installed
   gem:
