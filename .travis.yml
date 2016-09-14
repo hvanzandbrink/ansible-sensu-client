@@ -67,6 +67,7 @@ script:
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /etc/init.d'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm /opt/sensu/embedded/bin/gem list --local'
   #test whether client listens
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat'
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ss -nat | grep "3030"'
   
   #test websites conf
