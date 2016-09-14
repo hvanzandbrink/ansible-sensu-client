@@ -15,4 +15,5 @@ galaxy_info:
     - sensu
 
 dependencies:
-  - { role: 030.sensu-install, version: 0.1.0 }
+  - role: 030.sensu-install
+    version: 0.1.0
