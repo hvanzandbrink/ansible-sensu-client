@@ -29,6 +29,7 @@ Dependencies
 ------------
 
 * 030.sensu-install
+* geerlingguy.ntp
 
 Example Playbook
 ----------------
