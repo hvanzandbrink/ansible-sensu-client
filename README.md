@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/030/ansible-sensu-client.svg?branch=master)](https://travis-ci.org/030/ansible-sensu-client)
+
 ansible-sensu-client
 ====================
 
@@ -27,7 +29,7 @@ Dependencies
 ------------
 
 * 030.sensu-install
-* geerlingguy.git
+* geerlingguy.ntp
 
 Example Playbook
 ----------------

@@ -12,18 +12,17 @@
 {% endif %}
 {% for check_metric in checks_metrics %}
     "{{ check_metric }}": {
-  {% if 'metrics' in check_metric %}
+{% if 'metrics' in check_metric %}
       "type": "metric",
       "handlers": ["relay"],
-  {% endif %}
+{% endif %}
       "command": "{{ check_metric }}.rb",
       "standalone": true,
       "interval": 60,
       "refresh": 60
-    }
-{% if not loop.last %}
-,
+    }{%- if not loop.last -%},
 {% endif %}
 {% endfor %}
+
   }
 }

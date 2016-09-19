@@ -1,6 +1,10 @@
 ---
 - hosts: localhost
-  remote_user: root
+
+  vars:
+    ntp_enabled: false
+    ntp_manage_config: true
+
   roles:
     - role_under_test
     - 030.sensu-install
