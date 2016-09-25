@@ -4,7 +4,7 @@
     "port": {{ rabbitmq_port }},
     "vhost": "/sensu",
     "user": "sensu",
-    "password": "{{ rabbitmq_sensu_password }}",
+    "password": "{{ vault_sensu_server_rabbitmq_users_sensu_password }}",
     "heartbeat": 30,
     "prefetch": 50
   }
