@@ -16,6 +16,9 @@
       "type": "metric",
       "handlers": ["relay"],
 {% endif %}
+{% if 'check' in check_metric %}
+      "handlers": ["default", "mailer"],
+{% endif %}
 {% if check_metric == "check-disk-usage" %}
       "command": "{{ check_metric }}.rb -x cgroup -p /run/lxcfs",
 {% else %}
