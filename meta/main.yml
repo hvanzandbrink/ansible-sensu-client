@@ -7,15 +7,17 @@ galaxy_info:
   platforms:
   - name: EL
     versions:
+    - 6
     - 7
   - name: Ubuntu
     versions:
     - trusty
+    - xenial
   galaxy_tags:
     - sensu
 
 dependencies:
   - role: 030.sensu-install
-    version: 0.1.0
+    version: 0.1.1
   - role: geerlingguy.ntp
     version: 1.3.0

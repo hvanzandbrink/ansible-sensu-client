@@ -16,7 +16,7 @@ Role Variables
 * monitor websites
 
 ```
-websites:
+sensu_client_websites:
   - name: website1
     url: http://unknownwebsite123
     keyword: unknown

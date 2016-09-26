@@ -1,14 +1,20 @@
 sensu_client_ip: 127.0.0.1
-sensu_client_plugins: sensu-plugins
-sensu_client_github_url_base: https://github.com/{{ sensu_client_plugins }}/{{ sensu_client_plugins }}-
-sensu_plugins_dir: /etc/sensu/plugins
+sensu_client_gem: /opt/sensu/embedded/bin/gem
+sensu_client_github_url_base: https://github.com/{{ sensu_client_github_url_base_infix }}/{{ sensu_client_github_url_base_infix }}-
+sensu_client_rabbitmq_host: 127.0.0.1
+sensu_client_rabbitmq_port: 5672
 
-rabbitmq_host: 127.0.0.1
-rabbitmq_port: 5672
+sensu_client_checks_metrics:
+  - check-cpu
+  - check-disk-usage
+  - check-memory-percent
+  - check-ntp
+  - check-swap-percent
+  - metrics-cpu
+  - metrics-memory-percent
+  - metrics-disk
 
-vault_sensu_server_rabbitmq_users_sensu_password: rabbitmq_password
-
-plugins:
+sensu_client_plugins:
   - name: cpu-checks
     version: 1.0.0
   - name: disk-checks
@@ -19,13 +25,3 @@ plugins:
     version: 1.0.2
   - name: ntp
     version: 1.0.0
-
-checks_metrics:
-  - check-cpu
-  - check-disk-usage
-  - check-memory-percent
-  - check-ntp
-  - check-swap-percent
-  - metrics-cpu
-  - metrics-memory-percent
-  - metrics-disk
