@@ -4,6 +4,7 @@
   vars:
     ntp_enabled: false
     ntp_manage_config: true
+    vault_sensu_server_rabbitmq_users_sensu_password: rabbitmq_password
 
   roles:
     - role_under_test
