@@ -1,7 +1,7 @@
 {
   "rabbitmq": {
-    "host": "{{ rabbitmq_host }}",
-    "port": {{ rabbitmq_port }},
+    "host": "{{ sensu_client_rabbitmq_host }}",
+    "port": {{ sensu_client_rabbitmq_port }},
     "vhost": "/sensu",
     "user": "sensu",
     "password": "{{ vault_sensu_server_rabbitmq_users_sensu_password }}",
