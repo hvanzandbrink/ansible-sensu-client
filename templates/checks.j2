@@ -1,7 +1,7 @@
 {
   "checks": {
-{% if websites is defined %}
-{% for website in websites %}
+{% if sensu_client_websites is defined %}
+{% for website in sensu_client_websites %}
     "{{ website.name }}": {
       "command": "/etc/sensu/plugins/check-http.rb -u {{ website.url }} -q '{{ website.keyword }}'",
       "standalone": true,
@@ -10,7 +10,7 @@
     },
 {% endfor %}
 {% endif %}
-{% for check_metric in checks_metrics %}
+{% for check_metric in sensu_client_checks_metrics %}
     "{{ check_metric }}": {
 {% if 'metrics' in check_metric %}
       "type": "metric",
