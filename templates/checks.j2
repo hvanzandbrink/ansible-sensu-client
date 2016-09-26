@@ -3,7 +3,7 @@
 {% if sensu_client_websites is defined %}
 {% for website in sensu_client_websites %}
     "{{ website.name }}": {
-      "command": "/etc/sensu/plugins/check-http.rb -u {{ website.url }} -q '{{ website.keyword }}'",
+      "command": "check-http.rb -u {{ website.url }} -q '{{ website.keyword }}'",
       "standalone": true,
       "interval": 60,
       "refresh": 60      

@@ -22,7 +22,7 @@
     enabled: yes
 
 - name: get installed sensu-plugins
-  command: /opt/sensu/embedded/bin/gem list --local
+  command: "{{ sensu_client_gem }} list --local"
   register: installed_plugins
   changed_when: false
 
@@ -36,4 +36,4 @@
     name: sys-filesystem
     state: latest
     user_install: no
-    executable: /opt/sensu/embedded/bin/gem
+    executable: "{{ sensu_client_gem }}"
