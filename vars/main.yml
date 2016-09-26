@@ -1,2 +1,2 @@
 ---
-# vars file for ansible-sensu-client
+sensu_client_github_url_base_infix: sensu-plugins

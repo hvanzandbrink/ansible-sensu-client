@@ -1,7 +1,5 @@
 sensu_client_ip: 127.0.0.1
-sensu_client_plugins: sensu-plugins
-sensu_client_plugins_dir: /etc/sensu/plugins
-sensu_client_github_url_base: https://github.com/{{ sensu_client_plugins }}/{{ sensu_client_plugins }}-
+sensu_client_github_url_base: https://github.com/{{ sensu_client_github_url_base_infix }}/{{ sensu_client_github_url_base_infix }}-
 sensu_client_rabbitmq_host: 127.0.0.1
 sensu_client_rabbitmq_port: 5672
 

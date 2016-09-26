@@ -29,7 +29,7 @@
 - name: be sure sensu-plugins-{{ item.name }} is installed
   command: sensu-install -p {{ item.name }}:{{ item.version }}
   when: "'sensu-plugins-{{ item.name }} ({{ item.version }})' not in installed_plugins.stdout"
-  with_items: "{{ plugins }}"
+  with_items: "{{ sensu_client_plugins }}"
 
 - name: be sure sys-filesystem gem is installed
   gem:
