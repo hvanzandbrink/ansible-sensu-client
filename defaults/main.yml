@@ -14,7 +14,7 @@ sensu_client_checks_metrics:
   - metrics-memory-percent
   - metrics-disk
 
-sensu_plugin_install:
+sensu_client_plugins:
   - name: cpu-checks
     version: 1.0.0
   - name: disk-checks

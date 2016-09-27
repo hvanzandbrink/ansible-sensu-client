@@ -19,7 +19,5 @@ galaxy_info:
 dependencies:
   - role: 030.sensu-install
     version: 0.1.1
-  - role: 030.sensu-plugin-install
-    version: 0.1.0
   - role: geerlingguy.ntp
     version: 1.3.0
