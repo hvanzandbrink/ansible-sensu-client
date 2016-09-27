@@ -17,9 +17,12 @@ galaxy_info:
     - sensu
 
 dependencies:
-  - role: 030.sensu-install
+  - src: 030.sensu-install
     version: 0.1.1
-  - role: 030.sensu-plugin-install
+    name: 030.firewall
+  - src: 030.sensu-plugin-install
     version: 0.1.0
-  - role: geerlingguy.ntp
+    name: 030.sensu-client
+  - src: geerlingguy.ntp
     version: 1.3.0
+    name: geerlingguy.ntp
