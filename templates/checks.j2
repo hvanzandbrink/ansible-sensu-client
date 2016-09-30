@@ -1,5 +1,15 @@
 {
   "checks": {
+{% if sensu_client_ports is defined %}
+{% for port in sensu_client_ports %}
+    "port_{{ port }}": {
+      "command": "check-ports.rb -p {{ port }}",
+      "standalone": true,
+      "interval": 60,
+      "refresh": 60
+    },
+{% endfor %}
+{% endif %}
 {% if sensu_client_websites is defined %}
 {% for website in sensu_client_websites %}
     "{{ website.name }}": {
