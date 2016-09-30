@@ -25,6 +25,15 @@ sensu_client_websites:
     keyword: unknown
 ```
 
+* monitor ports
+
+```
+sensu_client_ports:
+  - 22
+  - 80
+  - 8443
+```
+
 Dependencies
 ------------
 
