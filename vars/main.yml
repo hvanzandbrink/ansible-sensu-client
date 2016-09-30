@@ -1,2 +1,3 @@
 ---
+sensu_client_check_disk_ignore_path_regex: (/sys/kernel/debug/tracing|/run/lxcfs/controllers)
 sensu_client_github_url_base_infix: sensu-plugins
