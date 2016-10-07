@@ -23,6 +23,7 @@ sensu_client_websites:
   - name: website2
     url: http://unknownwebsite456
     keyword: unknown
+    response_code: 405
 ```
 
 * monitor ports
