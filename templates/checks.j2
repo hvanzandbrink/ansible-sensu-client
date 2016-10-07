@@ -13,7 +13,7 @@
 {% if sensu_client_websites is defined %}
 {% for website in sensu_client_websites %}
     "{{ website.name }}": {
-      "command": "check-http.rb -u {{ website.url }} -q '{{ website.keyword }}'",
+      "command": "check-http.rb -u {{ website.url }} -q '{{ website.keyword }}'{% if website.response_code is defined %} --response-code {{ website.response_code }}{% endif %}",
       "standalone": true,
       "interval": 60,
       "refresh": 60      
