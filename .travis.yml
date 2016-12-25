@@ -74,7 +74,7 @@ script:
   #test plugins
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /opt/sensu/embedded/bin | grep "cpu\|http"'
   #test whether mailer handler is set
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "default.*mailer"'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "mailer"'
 
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'
