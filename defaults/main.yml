@@ -13,6 +13,7 @@ sensu_client_checks_metrics:
   - metrics-cpu
   - metrics-memory-percent
   - metrics-disk
+  - metrics-disk-usage
 
 sensu_plugin_install:
   - name: cpu-checks
