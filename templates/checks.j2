@@ -1,40 +1,16 @@
 {
   "checks": {
-{% if sensu_client_ports is defined %}
-{% for port in sensu_client_ports %}
-    "port_{{ port }}": {
-      "command": "check-ports.rb -p {{ port }}",
-      "standalone": true,
-      "interval": 60,
-      "refresh": 60
-    },
-{% endfor %}
-{% endif %}
-{% if sensu_client_websites is defined %}
-{% for website in sensu_client_websites %}
-    "{{ website.name }}": {
-      "command": "check-http.rb -u {{ website.url }} -q '{{ website.keyword }}'{% if website.response_code is defined %} --response-code {{ website.response_code }}{% endif %}",
-      "standalone": true,
-      "interval": 60,
-      "refresh": 60      
-    },
-{% endfor %}
-{% endif %}
 {% for check_metric in sensu_client_checks_metrics %}
-    "{{ check_metric }}": {
+    "{{ check_metric.name }}": {
 {% if 'metrics' in check_metric %}
       "type": "metric",
-      "handlers": ["relay"],
 {% endif %}
-{% if check_metric == "check-disk-usage" %}
-      "handlers": ["mailer"],
-      "command": "{{ check_metric }}.rb -x cgroup -p '{{ sensu_client_check_disk_ignore_path_regex }}'",
-{% else %}
-      "command": "{{ check_metric }}.rb",
+{% if check_metric.handlers is defined %}
+      "handlers": ["{{ check_metric.handlers | list | join("\", \"") }}"],
 {% endif %}
-      "standalone": true,
-      "interval": 60,
-      "refresh": 60
+      "command": "{{ check_metric.name }}.rb {% if check_metric.name == 'check-disk-usage' %}-x cgroup -p '{{ sensu_client_check_disk_ignore_path_regex }}'{% endif %}{% if check_metric.name == 'check-ports' %} -p {{ check_metric.port }}{% endif %}{% if check_metric.name == 'check-http' %} -u {{ check_metric.url }} -q '{{ check_metric.keyword }}'{% if check_metric.response_code is defined %} --response-code {{ check_metric.response_code }}{% endif %}{% endif %}",
+      "interval": {{ check_metric.interval | default(60) }},
+      "standalone": true
     }{%- if not loop.last -%},
 {% endif %}
 {% endfor %}
