@@ -79,6 +79,8 @@ script:
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "interval.*30"'
   #test whether sms is defined
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "sms"'
+  #test whether type metric is set if a metric is defined
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "type.*metric"'
 
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'

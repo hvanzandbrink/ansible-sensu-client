@@ -1,15 +1,15 @@
 {
   "checks": {
-{% for check_metric in sensu_client_checks_metrics %}
-    "{{ check_metric.name }}": {
-{% if 'metrics' in check_metric %}
+{% for c in sensu_client_checks_metrics %}
+    "{{ c.name }}": {
+{% if 'metrics' in c.name %}
       "type": "metric",
 {% endif %}
-{% if check_metric.handlers is defined %}
-      "handlers": ["{{ check_metric.handlers | list | join("\", \"") }}"],
+{% if c.handlers is defined %}
+      "handlers": ["{{ c.handlers | list | join("\", \"") }}"],
 {% endif %}
-      "command": "{{ check_metric.name }}.rb {% if check_metric.name == 'check-disk-usage' %}-x cgroup -p '{{ sensu_client_check_disk_ignore_path_regex }}'{% endif %}{% if check_metric.name == 'check-ports' %} -p {{ check_metric.port }}{% endif %}{% if check_metric.name == 'check-http' %} -u {{ check_metric.url }} -q '{{ check_metric.keyword }}'{% if check_metric.response_code is defined %} --response-code {{ check_metric.response_code }}{% endif %}{% endif %}",
-      "interval": {{ check_metric.interval | default(60) }},
+      "command": "{{ c.name }}.rb {% if c.name == 'check-disk-usage' %}-x cgroup -p '{{ sensu_client_check_disk_ignore_path_regex }}'{% endif %}{% if c.name == 'check-ports' %} -p {{ c.port }}{% endif %}{% if c.name == 'check-http' %} -u {{ c.url }} -q '{{ c.keyword }}'{% if c.response_code is defined %} --response-code {{ c.response_code }}{% endif %}{% endif %}",
+      "interval": {{ c.interval | default(60) }},
       "standalone": true
     }{%- if not loop.last -%},
 {% endif %}
