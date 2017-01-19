@@ -13,40 +13,41 @@ This role requires a running sensu-server, sensu-api and a messagebroker, e.g. r
 Role Variables
 --------------
 
-* checks
+* sensu_client_checks_metrics
 
 ```
-- cmd: check-cpu
+sensu_client_checks_metrics:
+  - name: check-cpu
+    interval: 200
 ```
 
-* metrics
+* sensu_client_websites
 
 ```
-- cmd: metrics-memory-percent
-  handlers:
-    - relay
+sensu_client_websites:
+  - name: website1
+    url: http://unknownwebsite123
+    keyword: unknown
+    handlers:
+      - mailer
+      - someOtherHandler
+  - name: website2
+    url: http://unknownwebsite456
+    keyword: unknown
+    response_code: 405
+    interval: 50
 ```
 
-* websites
+* sensu_client_ports
 
 ```
-- name: google
-  cmd: check-http
-  url: https://google.com
-  keyword: google
-  interval: 300
-```
-
-* ports
-
-```
-- name: software-name
-  cmd: check-ports
-  port: 234
-  interval: 30
-  handlers:
-    - mailer
-    - sms
+sensu_client_ports:
+  - name: helloPort
+    number: 123
+    handlers:
+      - mailer
+      - someOtherHandler
+    interval: 300
 ```
 
 * plugins
@@ -79,7 +80,7 @@ Additional testing
 ------------------
 
 ```
-ansible all -i "localhost," -c local -m template -a "src=checks.j2 dest=./test.txt" --extra-vars='{"sensu_client_checks_metrics": [{"cmd":"metrics-world"},{"name":"hello","cmd":"check-http","url":"http://hello","keyword":"world"},{"cmd":"check-ports","port":50,"interval":30,"handlers":["mailer","sms"]},{"cmd":"check-disk-usage","args":"cgroup -p 'jhjh'"}], "sensu_client_check_disk_ignore_path_regex": "haha"}' && cat test.txt
+sh tests/template.sh
 ```
 
 License
