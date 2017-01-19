@@ -79,7 +79,7 @@ Additional testing
 ------------------
 
 ```
-ansible all -i "localhost," -c local -m template -a "src=checks.j2 dest=./test.txt" --extra-vars='{"sensu_client_checks_metrics": [{"name":"hello","cmd":"check-http","url":"http://hello","keyword":"world"},{"cmd":"check-ports","port":50,"interval":30,"handlers":["mailer","sms"]},{"cmd":"check-disk-usage","handlers":[relay],"args":"cgroup -p 'jhjh'"}], "sensu_client_check_disk_ignore_path_regex": "haha"}' && cat test.txt
+ansible all -i "localhost," -c local -m template -a "src=checks.j2 dest=./test.txt" --extra-vars='{"sensu_client_checks_metrics": [{"cmd":"metrics-world"},{"name":"hello","cmd":"check-http","url":"http://hello","keyword":"world"},{"cmd":"check-ports","port":50,"interval":30,"handlers":["mailer","sms"]},{"cmd":"check-disk-usage","args":"cgroup -p 'jhjh'"}], "sensu_client_check_disk_ignore_path_regex": "haha"}' && cat test.txt
 ```
 
 License

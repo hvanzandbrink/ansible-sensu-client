@@ -5,8 +5,8 @@
 {% if 'metrics' in c.cmd %}
       "type": "metric",
 {% endif %}
-{% if c.handlers is defined %}
-      "handlers": ["{{ c.handlers | list | join("\", \"") }}"],
+{% if c.handlers is defined or 'metrics' in c.cmd %}
+      "handlers": ["{% if 'metrics' in c.cmd %}relay{% else %}{{ c.handlers | list | join("\", \"") }}{% endif %}"],
 {% endif %}
       "command": "{{ c.cmd }}.rb {% if c.cmd == 'check-disk-usage' %}-x cgroup -p '{{ sensu_client_check_disk_ignore_path_regex }}'{% endif %}{% if c.cmd == 'check-ports' %} -p {{ c.port }}{% endif %}{% if c.cmd == 'check-http' %} -u {{ c.url }} -q '{{ c.keyword }}'{% if c.response_code is defined %} --response-code {{ c.response_code }}{% endif %}{% endif %}",
       "interval": {{ c.interval | default(60) }},
