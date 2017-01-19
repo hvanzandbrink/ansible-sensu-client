@@ -51,6 +51,16 @@ Role Variables
       - sms
 ```
 
+* plugins
+
+```
+sensu_plugin_install:
+  - name: cpu-checks
+    version: 1.0.0
+  - name: disk-checks
+    version: 2.0.1
+```
+
 Dependencies
 ------------
 

@@ -82,13 +82,15 @@ script:
   #test whether type metric is set if a metric is defined
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "type.*metric"'
 
+  # show sensu-client log.
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /var/log/sensu/sensu-client.log'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status sensu-client'
+
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'
 
 after_failure:
-  # show sensu-client log.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /var/log/sensu/sensu-client.log'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status sensu-client'
+  # checks that could be executed if why docker continues to run
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
