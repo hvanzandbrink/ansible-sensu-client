@@ -4,7 +4,7 @@ sensu_client_github_url_base: https://github.com/{{ sensu_client_github_url_base
 sensu_client_rabbitmq_host: 127.0.0.1
 sensu_client_rabbitmq_port: 5672
 
-sensu_client_checks_metrics:
+sensu_client_checks_metrics_common:
   - cmd: check-cpu
   - cmd: check-disk-usage
     args: cgroup -p '{{ sensu_client_check_disk_ignore_path_regex }}'
@@ -27,6 +27,8 @@ sensu_client_checks_metrics:
   - cmd: metrics-disk-usage
     handlers: 
       - relay
+
+sensu_client_checks_metrics_additional:
   - name: google
     cmd: check-http
     url: https://google.com 
@@ -39,6 +41,9 @@ sensu_client_checks_metrics:
     handlers:
       - mailer
       - sms
+
+#http://stackoverflow.com/a/28249672/2777965
+sensu_client_checks_metrics: "{{ sensu_client_checks_metrics_common + sensu_client_checks_metrics_additional }}"
 
 sensu_plugin_install:
   - name: cpu-checks
