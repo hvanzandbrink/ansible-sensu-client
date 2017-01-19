@@ -5,33 +5,44 @@ sensu_client_rabbitmq_host: 127.0.0.1
 sensu_client_rabbitmq_port: 5672
 
 sensu_client_checks_metrics:
-  - name: check-cpu
-  - name: check-disk-usage
+  - name: check cpu
+    cmd: check-cpu
+  - name: check disk usage
+    cmd: check-disk-usage
     args: cgroup -p '{{ sensu_client_check_disk_ignore_path_regex }}'
     handlers:
       - mailer
-  - name: check-memory-percent
-  - name: check-ntp
-  - name: check-swap-percent
+  - name: check memory percent
+    cmd: check-memory-percent
+  - name: check ntp
+    cmd: check-ntp
+  - name: check swap percent
+    cmd: check-swap-percent
     handlers:
       - mailer
-  - name: metrics-cpu
+  - name: metrics cpu
+    cmd: metrics-cpu
     handlers: 
       - relay
-  - name: metrics-memory-percent
+  - name: metrics memory percent
+    cmd: metrics-memory-percent
     handlers: 
       - relay
-  - name: metrics-disk
+  - name: metrics disk
+    cmd: metrics-disk
     handlers: 
       - relay
-  - name: metrics-disk-usage
+  - name: metrics disk usage
+    cmd: metrics-disk-usage
     handlers: 
       - relay
-  - name: check-http
+  - name: google
+    cmd: check-http
     url: https://google.com 
     keyword: google
     interval: 300
-  - name: check-ports
+  - name: port 234
+    cmd: check-ports
     port: 234
     interval: 30
     handlers:

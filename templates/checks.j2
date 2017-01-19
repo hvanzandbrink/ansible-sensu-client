@@ -2,13 +2,13 @@
   "checks": {
 {% for c in sensu_client_checks_metrics %}
     "{{ c.name }}": {
-{% if 'metrics' in c.name %}
+{% if 'metrics' in c.cmd %}
       "type": "metric",
 {% endif %}
 {% if c.handlers is defined %}
       "handlers": ["{{ c.handlers | list | join("\", \"") }}"],
 {% endif %}
-      "command": "{{ c.name }}.rb {% if c.name == 'check-disk-usage' %}-x cgroup -p '{{ sensu_client_check_disk_ignore_path_regex }}'{% endif %}{% if c.name == 'check-ports' %} -p {{ c.port }}{% endif %}{% if c.name == 'check-http' %} -u {{ c.url }} -q '{{ c.keyword }}'{% if c.response_code is defined %} --response-code {{ c.response_code }}{% endif %}{% endif %}",
+      "command": "{{ c.cmd }}.rb {% if c.cmd == 'check-disk-usage' %}-x cgroup -p '{{ sensu_client_check_disk_ignore_path_regex }}'{% endif %}{% if c.cmd == 'check-ports' %} -p {{ c.port }}{% endif %}{% if c.cmd == 'check-http' %} -u {{ c.url }} -q '{{ c.keyword }}'{% if c.response_code is defined %} --response-code {{ c.response_code }}{% endif %}{% endif %}",
       "interval": {{ c.interval | default(60) }},
       "standalone": true
     }{%- if not loop.last -%},
