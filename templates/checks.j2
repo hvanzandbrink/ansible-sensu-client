@@ -1,7 +1,7 @@
 {
   "checks": {
 {% for c in sensu_client_checks_metrics %}
-    "{{ c.name }}": {
+    "{{ c.name | default(c.cmd) }}": {
 {% if 'metrics' in c.cmd %}
       "type": "metric",
 {% endif %}

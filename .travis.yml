@@ -84,7 +84,6 @@ script:
 
   # show sensu-client log.
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /var/log/sensu/sensu-client.log'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm systemctl status sensu-client'
 
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'
