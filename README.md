@@ -13,26 +13,42 @@ This role requires a running sensu-server, sensu-api and a messagebroker, e.g. r
 Role Variables
 --------------
 
-* monitor websites
+* checks
 
 ```
-sensu_client_websites:
-  - name: website1
-    url: http://unknownwebsite123
-    keyword: unknown
-  - name: website2
-    url: http://unknownwebsite456
-    keyword: unknown
-    response_code: 405
+- name: check cpu
+  cmd: check-cpu
 ```
 
-* monitor ports
+* metrics
 
 ```
-sensu_client_ports:
-  - 22
-  - 80
-  - 8443
+- name: metrics memory percent
+  cmd: metrics-memory-percent
+  handlers:
+    - relay
+```
+
+* websites
+
+```
+- name: google
+  cmd: check-http
+  url: https://google.com
+  keyword: google
+  interval: 300
+```
+
+* ports
+
+```
+  - name: port 234
+    cmd: check-ports
+    port: 234
+    interval: 30
+    handlers:
+      - mailer
+      - sms
 ```
 
 Dependencies
