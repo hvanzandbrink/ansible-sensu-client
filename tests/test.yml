@@ -4,14 +4,15 @@
   vars:
     ntp_enabled: false
     ntp_manage_config: true
-    sensu_client_websites:
-      - name: website1
-        url: http://unknownwebsite123
-        keyword: unknown
-      - name: website2
-        url: http://unknownwebsite456
-        keyword: unknown
     vault_sensu_server_rabbitmq_users_sensu_password: rabbitmq_password
+    sensu_client_websites:
+      - name: google
+        url: http://google.com
+        keyword: google
+        interval: 30
+        handlers:
+          - mailer
+          - sms
 
   roles:
     - role_under_test

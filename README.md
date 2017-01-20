@@ -13,32 +13,58 @@ This role requires a running sensu-server, sensu-api and a messagebroker, e.g. r
 Role Variables
 --------------
 
-* monitor websites
+* sensu_client_checks_metrics
+
+```
+sensu_client_checks_metrics:
+  - name: check-cpu
+    interval: 200
+```
+
+* sensu_client_websites
 
 ```
 sensu_client_websites:
   - name: website1
     url: http://unknownwebsite123
     keyword: unknown
+    handlers:
+      - mailer
+      - someOtherHandler
   - name: website2
     url: http://unknownwebsite456
     keyword: unknown
     response_code: 405
+    interval: 50
 ```
 
-* monitor ports
+* sensu_client_ports
 
 ```
 sensu_client_ports:
-  - 22
-  - 80
-  - 8443
+  - name: helloPort
+    number: 123
+    handlers:
+      - mailer
+      - someOtherHandler
+    interval: 300
+```
+
+* plugins
+
+```
+sensu_plugin_install:
+  - name: cpu-checks
+    version: 1.0.0
+  - name: disk-checks
+    version: 2.0.1
 ```
 
 Dependencies
 ------------
 
 * 030.sensu-install
+* 030.sensu-plugin-install
 * geerlingguy.ntp
 
 Example Playbook
@@ -48,6 +74,13 @@ Example Playbook
 - hosts: servers
   roles:
     - { role: 030.sensu-client }
+```
+
+Additional testing
+------------------
+
+```
+sh tests/template.sh
 ```
 
 License
