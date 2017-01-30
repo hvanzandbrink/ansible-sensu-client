@@ -8,6 +8,9 @@
 {% if p.handlers is defined %}
       "handlers": ["{{ p.handlers | list | join("\", \"") }}"],
 {% endif %}
+{% if p.subscriptions is defined %}
+      "subscriptions": ["{{ p.subscriptions | list | join("\", \"") }}"],
+{% endif %}
       "interval": {{ p.interval | default(60) }}
     },
 {% endfor %}
@@ -19,6 +22,9 @@
       "standalone": true,
 {% if w.handlers is defined %}
       "handlers": ["{{ w.handlers | list | join("\", \"") }}"],
+{% endif %}
+{% if w.subscriptions is defined %}
+      "subscriptions": ["{{ w.subscriptions | list | join("\", \"") }}"],
 {% endif %}
       "interval": {{ w.interval | default(60) }}
     },
@@ -37,6 +43,9 @@
 {% endif %}
 {% if 'metrics' in c.name or c.handlers is defined %}
       "handlers": ["{% if 'metrics' in c.name %}relay{% else %}{{ c.handlers | list | join("\", \"") }}{% endif %}"],
+{% endif %}
+{% if c.subscriptions is defined %}
+      "subscriptions": ["{{ c.subscriptions | list | join("\", \"") }}"],
 {% endif %}
       "standalone": true,
       "interval": {{ c.interval | default(60) }}
