@@ -1,5 +1,5 @@
 sensu_client_checks_metrics:
   - name: check-cpu
-    subscriptions:
+    subscribers:
       - dev
       - ubuntu
