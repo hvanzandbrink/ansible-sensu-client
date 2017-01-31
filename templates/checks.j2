@@ -8,8 +8,9 @@
 {% if p.handlers is defined %}
       "handlers": ["{{ p.handlers | list | join("\", \"") }}"],
 {% endif %}
-{% if p.subscriptions is defined %}
-      "subscriptions": ["{{ p.subscriptions | list | join("\", \"") }}"],
+{% if p.subscribers is defined %}
+      "subscribers": ["{{ p.subscribers | list | join("\", \"") }}"],
+      "enable_deprecated_filtering": false,
 {% endif %}
       "interval": {{ p.interval | default(60) }}
     },
@@ -23,8 +24,9 @@
 {% if w.handlers is defined %}
       "handlers": ["{{ w.handlers | list | join("\", \"") }}"],
 {% endif %}
-{% if w.subscriptions is defined %}
-      "subscriptions": ["{{ w.subscriptions | list | join("\", \"") }}"],
+{% if w.subscribers is defined %}
+      "subscribers": ["{{ w.subscribers | list | join("\", \"") }}"],
+      "enable_deprecated_filtering": false,
 {% endif %}
       "interval": {{ w.interval | default(60) }}
     },
@@ -44,8 +46,9 @@
 {% if 'metrics' in c.name or c.handlers is defined %}
       "handlers": ["{% if 'metrics' in c.name %}relay{% else %}{{ c.handlers | list | join("\", \"") }}{% endif %}"],
 {% endif %}
-{% if c.subscriptions is defined %}
-      "subscriptions": ["{{ c.subscriptions | list | join("\", \"") }}"],
+{% if c.subscribers is defined %}
+      "subscribers": ["{{ c.subscribers | list | join("\", \"") }}"],
+      "enable_deprecated_filtering": false,
 {% endif %}
       "standalone": true,
       "interval": {{ c.interval | default(60) }}
