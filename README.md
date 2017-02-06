@@ -50,6 +50,15 @@ sensu_client_ports:
     interval: 300
 ```
 
+* sensu_client_procs
+
+check whether a certain process, e.g. supervisor still runs
+
+```
+sensu_client_procs:
+  - process: supervisor
+```
+
 * plugins
 
 ```
