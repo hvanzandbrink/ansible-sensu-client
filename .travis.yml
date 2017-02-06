@@ -68,7 +68,7 @@ script:
   #test websites conf
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json'
   #test whether check disk contains cgroup and regex path exclusion
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "check-disk-usage -x cgroup -p .*/sys/kernel/debug/tracing|/run/lxcfs/controllers.*"'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "check-disk-usage.rb -x cgroup -p .*/sys/kernel/debug/tracing|/run/lxcfs/controllers.*"'
   #test whether check websites is defined
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "google"'
   #test plugins
