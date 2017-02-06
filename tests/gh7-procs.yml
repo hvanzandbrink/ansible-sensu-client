@@ -1,0 +1,7 @@
+sensu_client_procs:
+  - name: a_certain_process_will_be_checked
+    process: some_process
+    subscribers:
+      - dev
+      - ubuntu
+  - process: some_process_second

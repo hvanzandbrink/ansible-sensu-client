@@ -1,5 +1,21 @@
 {
   "checks": {
+{% if sensu_client_procs is defined %}
+{% for p in sensu_client_procs %}
+    "{{ p.name | default(p.process) }}": {
+      "command": "check-process.rb -p {{ p.process }}",
+      "standalone": true,
+{% if p.handlers is defined %}
+      "handlers": ["{{ p.handlers | list | join("\", \"") }}"],
+{% endif %}
+{% if p.subscribers is defined %}
+      "subscribers": ["{{ p.subscribers | list | join("\", \"") }}"],
+      "enable_deprecated_filtering": false,
+{% endif %}
+      "interval": {{ p.interval | default(60) }}
+    },
+{% endfor %}
+{% endif %}
 {% if sensu_client_ports is defined %}
 {% for p in sensu_client_ports %}
     "{{ p.name | default(p.number) }}": {
