@@ -3,7 +3,7 @@
 {% if sensu_client_procs is defined %}
 {% for p in sensu_client_procs %}
     "{{ p.name | default(p.process) }}": {
-      "command": "check-process -p {{ p.process }}",
+      "command": "check-process.rb -p {{ p.process }}",
       "standalone": true,
 {% if p.handlers is defined %}
       "handlers": ["{{ p.handlers | list | join("\", \"") }}"],
