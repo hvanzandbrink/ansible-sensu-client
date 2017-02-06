@@ -17,3 +17,5 @@ ansible all -i "localhost," -c local -m template -a "src=checks.j2 dest=./test.t
 ansible all -i "localhost," -c local -m template -a "src=checks.j2 dest=./test.txt" --extra-vars='{"sensu_client_checks_metrics": [{"name":"check-disk-usage"},{"name":"hallo"},{"name":"world_metrics"}], "sensu_client_check_disk_ignore_path_regex": "haha"}' && cat test.txt
 
 ansible all -i "localhost," -c local -m template -a "src=checks.j2 dest=./test.txt" --extra-vars='@tests/gh87-subscriptions.yml' && cat test.txt
+
+ansible all -i "localhost," -c local -m template -a "src=checks.j2 dest=./test.txt" --extra-vars='@tests/gh7-procs.yml' && cat test.txt

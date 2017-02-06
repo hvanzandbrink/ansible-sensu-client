@@ -1,9 +1,25 @@
 {
   "checks": {
+{% if sensu_client_procs is defined %}
+{% for p in sensu_client_procs %}
+    "{{ p.name | default(p.process) }}": {
+      "command": "check-process -p {{ p.process }}",
+      "standalone": true,
+{% if p.handlers is defined %}
+      "handlers": ["{{ p.handlers | list | join("\", \"") }}"],
+{% endif %}
+{% if p.subscribers is defined %}
+      "subscribers": ["{{ p.subscribers | list | join("\", \"") }}"],
+      "enable_deprecated_filtering": false,
+{% endif %}
+      "interval": {{ p.interval | default(60) }}
+    },
+{% endfor %}
+{% endif %}
 {% if sensu_client_ports is defined %}
 {% for p in sensu_client_ports %}
     "{{ p.name | default(p.number) }}": {
-      "command": "check-ports.rb -p {{ p.number }}",
+      "command": "check-ports -p {{ p.number }}",
       "standalone": true,
 {% if p.handlers is defined %}
       "handlers": ["{{ p.handlers | list | join("\", \"") }}"],
@@ -19,7 +35,7 @@
 {% if sensu_client_websites is defined %}
 {% for w in sensu_client_websites %}
     "{{ w.name }}": {
-      "command": "check-http.rb -u {{ w.url }} -q '{{ w.keyword }}'{% if w.response_code is defined %} --response-code {{ w.response_code }}{% endif %}",
+      "command": "check-http -u {{ w.url }} -q '{{ w.keyword }}'{% if w.response_code is defined %} --response-code {{ w.response_code }}{% endif %}",
       "standalone": true,
 {% if w.handlers is defined %}
       "handlers": ["{{ w.handlers | list | join("\", \"") }}"],
@@ -39,9 +55,9 @@
       "type": "metric",
 {% endif %}
 {% if c.name == "check-disk-usage" %}
-      "command": "{{ c.name }}.rb -x cgroup -p '{{ sensu_client_check_disk_ignore_path_regex }}'",
+      "command": "{{ c.name }} -x cgroup -p '{{ sensu_client_check_disk_ignore_path_regex }}'",
 {% else %}
-      "command": "{{ c.name }}.rb",
+      "command": "{{ c.name }}",
 {% endif %}
 {% if 'metrics' in c.name or c.handlers is defined %}
       "handlers": ["{% if 'metrics' in c.name %}relay{% else %}{{ c.handlers | list | join("\", \"") }}{% endif %}"],
