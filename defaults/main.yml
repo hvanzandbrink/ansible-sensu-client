@@ -3,6 +3,7 @@ sensu_client_gem: /opt/sensu/embedded/bin/gem
 sensu_client_github_url_base: https://github.com/{{ sensu_client_github_url_base_infix }}/{{ sensu_client_github_url_base_infix }}-
 sensu_client_rabbitmq_host: 127.0.0.1
 sensu_client_rabbitmq_port: 5672
+sensu_client_check_disk_ignore_path_regex: (/sys/kernel/debug/tracing|/run/lxcfs/controllers)
 
 sensu_client_checks_metrics:
   - name: check-cpu
