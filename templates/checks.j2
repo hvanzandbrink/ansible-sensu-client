@@ -35,7 +35,7 @@
 {% if sensu_client_websites is defined %}
 {% for w in sensu_client_websites %}
     "{{ w.name }}": {
-      "command": "check-http.rb -u {{ w.url }} -q '{{ w.keyword }}'{% if w.response_code is defined %} --response-code {{ w.response_code }}{% endif %}",
+      "command": "check-http.rb -u {{ w.url }} {% if w.keyword is defined %} -q '{{ w.keyword }}'{% endif %}{% if w.response_code is defined %} --response-code {{ w.response_code }}{% endif %}",
       "standalone": true,
 {% if w.handlers is defined %}
       "handlers": ["{{ w.handlers | list | join("\", \"") }}"],
