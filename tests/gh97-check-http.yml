@@ -1,0 +1,7 @@
+sensu_client_websites:
+  - name: google
+    url: http://google.com
+  - name: google
+    url: http://google.com
+    keyword: google
+    response_code: 302

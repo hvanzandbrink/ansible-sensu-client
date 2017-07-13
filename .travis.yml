@@ -1,95 +1,32 @@
 ---
-sudo: required
+services: docker
 
 env:
-  global:
-    # https://github.com/travis-ci/travis-ci/issues/6461#issuecomment-239577306
-    DOCKER_VERSION: "1.9.1-0~trusty"
-  matrix:
-    - distro: centos7
-      init: /usr/lib/systemd/systemd
-      run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-      playbook: test.yml
-    - distro: centos6
-      init: /sbin/init
-      run_opts: ""
-      playbook: test.yml
-    - distro: ubuntu1604
-      init: /lib/systemd/systemd
-      run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-      playbook: test.yml
-    - distro: ubuntu1404
-      init: /sbin/init
-      run_opts: ""
-      playbook: test.yml
-
-services:
-  - docker
-
-before_install:
-  # Downgrade to older version of Docker engine.
-  - sudo apt-get update
-  - sudo apt-get remove docker-engine -yq
-  - sudo apt-get install docker-engine=$DOCKER_VERSION -yq --no-install-suggests --no-install-recommends --force-yes -o Dpkg::Options::="--force-confnew"
-
-  # Pull container
-  - 'sudo docker pull geerlingguy/docker-${distro}-ansible:latest'
+  - distro: centos7
+  - distro: centos6
+  - distro: ubuntu1604
+  - distro: ubuntu1404
 
 script:
-  - container_id=$(mktemp)
-  # Run container in detached state
-  - 'sudo docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${run_opts} geerlingguy/docker-${distro}-ansible:latest "${init}" > "${container_id}"'
+  # Configure test script so we can run extra tests after playbook is run.
+  - export container_id=$(date +%s)
+  - export cleanup=false
 
-  # Install dependencies.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible --version'
-  - 'sudo docker exec "$(cat ${container_id})" ansible-galaxy install -r /etc/ansible/roles/role_under_test/tests/requirements.yml'
+  # Download test shim.
+  - wget -O ${PWD}/tests/test.sh https://gist.githubusercontent.com/geerlingguy/73ef1e5ee45d8694570f334be385e181/raw/4298947d0b1bb602913bbf46102abf43f5fe7dce/ansible-role-test.sh
+  - chmod +x ${PWD}/tests/test.sh
 
-  # Ansible syntax check.
-  # http://serverfault.com/questions/803079/what-is-the-correct-syntax-of-defining-role-dependencies-in-the-meta-main-yml-in: - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook} --syntax-check'
+  # Run tests.
+  - ${PWD}/tests/test.sh ${distro}
 
-  # Test role.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook}'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/fstab'
-
-  # Test role idempotence.
-  - idempotence=$(mktemp)
-  - sudo docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/role_under_test/tests/${playbook} | tee -a ${idempotence}
+  # Check whether checks file looks as expected.
   - >
-    tail ${idempotence}
-    | grep -q 'changed=0.*failed=0'
-    && (echo 'Idempotence test: pass' && exit 0)
-    || (echo 'Idempotence test: fail' && exit 1)
-
-  # Ensure Git is installed and at the right version.
-  #- 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm sudo systemctl status sensu-client.service -l'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /etc/init.d'
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm /opt/sensu/embedded/bin/gem list --local'
-  
-  #test websites conf
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json'
-  #test whether check disk contains cgroup and regex path exclusion
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "check-disk-usage -x cgroup -p .*/sys/kernel/debug/tracing|/run/lxcfs/controllers.*"'
-  #test whether check websites is defined
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "google"'
-  #test plugins
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /opt/sensu/embedded/bin | grep "cpu\|http"'
-  #test whether mailer handler is set
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "mailer"'
-  #test whether interval is defined
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "interval.*30"'
-  #test whether sms is defined
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "sms"'
-  #test whether type metric is set if a metric is defined
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/sensu/conf.d/checks.json | grep "type.*metric"'
-
-  # show sensu-client log.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /var/log/sensu/sensu-client.log'
-
-  # Clean up
-  - 'sudo docker stop "$(cat ${container_id})"'
+    export CKSUM=$(docker exec $container_id cksum /etc/sensu/conf.d/checks.json | awk '{ print $1 }')
+    && [ "$CKSUM" -eq "2780429354" ]
 
 after_failure:
-  # checks that could be executed if why docker continues to run
+  - docker exec $container_id cat /etc/sensu/conf.d/checks.json
+  - docker exec $container_id cksum /etc/sensu/conf.d/checks.json
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
